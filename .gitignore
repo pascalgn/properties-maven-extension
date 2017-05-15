@@ -1,0 +1,8 @@
+.*
+
+*.iml
+*.class
+
+target/
+build/
+bin/
