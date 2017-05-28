@@ -7,31 +7,35 @@ This allows the usage of dynamic project versions like `1.2.3.${sha1}`.
 
 For a simple example, consider the following POM file:
 
-    <?xml version="1.0" encoding="UTF-8"?>
-    <project>
-        <modelVersion>4.0.0</modelVersion>
-    
-        <groupId>com.example</groupId>
-        <artifactId>example-artifact</artifactId>
-        <version>1.2.3.${sha1}</version>
-    
-        <properties>
-            <sha1>${git.commit.id.abbrev}</sha1>
-        </properties>
-    </project>
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.example</groupId>
+    <artifactId>example-artifact</artifactId>
+    <version>1.2.3.${sha1}</version>
+
+    <properties>
+        <sha1>${git.commit.id.abbrev}</sha1>
+    </properties>
+</project>
+```
 
 For a useful project version, the build must be invoked like `mvn clean install -Dsha1=abc123`.
 Using the Properties Maven Extension, this configuration can be set in the project directory itself,
 by adding the following `.mvn/extensions.xml` file to the project:
 
-    <?xml version="1.0" encoding="UTF-8"?>
-    <extensions>
-        <extension>
-            <groupId>com.github.pascalgn</groupId>
-            <artifactId>properties-maven-extension</artifactId>
-            <version>0.1.0</version>
-        </extension>
-    </extensions>
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<extensions>
+    <extension>
+        <groupId>com.github.pascalgn</groupId>
+        <artifactId>properties-maven-extension</artifactId>
+        <version>0.1.0</version>
+    </extension>
+</extensions>
+```
 
 A build is now as easy as `mvn clean install` and the commit hash will be available as a property,
 so that the final project version will be `1.2.3.abc123` (depending on the current commit hash).
@@ -54,6 +58,12 @@ The following properties are currently provided by the extension:
 
 If you need more properties, feel free to create an [issue](https://github.com/pascalgn/properties-maven-extension/issues)
 or a [pull request](https://github.com/pascalgn/properties-maven-extension/pulls).
+
+## Notes
+
+* There are already plugins providing properties, like [maven-git-commit-id-plugin](https://github.com/ktoso/maven-git-commit-id-plugin). However, the POM structure, including versions, is built by Maven before any plugins are executed, hence this extension
+* When you use placeholders in your version, be sure to also read the [Maven CI Friendly Versions](https://maven.apache.org/maven-ci-friendly.html) guide, especially the section about the [flatten-maven-plugin](http://www.mojohaus.org/flatten-maven-plugin)
+* The versioning scheme of this project follows [semantic versioning](http://semver.org/)
 
 ## License
 
