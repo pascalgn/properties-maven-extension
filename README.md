@@ -45,6 +45,10 @@ so that the final project version will be `1.2.3.abc123` (depending on the curre
 You will need at least Maven 3.3.1 for this to work. See
 [the release notes](https://maven.apache.org/docs/3.3.1/release-notes.html) for more information.
 
+(Note that some bugs concerning version placeholders were fixed in the
+[Maven 3.5.0-beta-1 release](https://maven.apache.org/docs/3.5.0-beta-1/release-notes.html).
+If you run into issues, take a look at the release notes to see if they have been addressed)
+
 For *earlier* Maven versions, you need to manually download the JAR file
 and place it in the `${MAVEN_HOME}/lib/ext` folder.
 
@@ -61,6 +65,7 @@ or a [pull request](https://github.com/pascalgn/properties-maven-extension/pulls
 
 ## Notes
 
+* This extension requires Maven to be run with Java 8 (due to the [JGit](https://eclipse.org/jgit) dependency)
 * There are already plugins providing properties, like [maven-git-commit-id-plugin](https://github.com/ktoso/maven-git-commit-id-plugin). However, the POM structure, including versions, is built by Maven before any plugins are executed, hence this extension
 * When you use placeholders in your version, be sure to also read the [Maven CI Friendly Versions](https://maven.apache.org/maven-ci-friendly.html) guide, especially the section about the [flatten-maven-plugin](http://www.mojohaus.org/flatten-maven-plugin)
 * The versioning scheme of this project follows [semantic versioning](http://semver.org/)
