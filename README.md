@@ -22,7 +22,8 @@ For a simple example, consider the following POM file:
 </project>
 ```
 
-For a useful project version, the build must be invoked like `mvn clean install -Dsha1=abc123`.
+For a useful project version, the build would have to be invoked like `mvn clean install -Dsha1=abc123`.
+
 Using the Properties Maven Extension, this configuration can be set in the project directory itself,
 by adding the following `.mvn/extensions.xml` file to the project:
 
@@ -32,7 +33,7 @@ by adding the following `.mvn/extensions.xml` file to the project:
     <extension>
         <groupId>com.github.pascalgn</groupId>
         <artifactId>properties-maven-extension</artifactId>
-        <version>0.1.0</version>
+        <version>0.2.0</version>
     </extension>
 </extensions>
 ```
@@ -59,6 +60,7 @@ The following properties are currently provided by the extension:
 * `git.branch`, the current branch name (*master*, *feature/some-feature*, etc.)
 * `git.commit.id`, the full SHA of the HEAD commit (*cbf1b9a1be984a9f61b79a05f23b19f66d533537*)
 * `git.commit.id.abbrev`, the abbreviated SHA of the HEAD commit (*cbf1b9a*)
+* `git.count`, the current number of commits reachable from HEAD
 
 If you need more properties, feel free to create an [issue](https://github.com/pascalgn/properties-maven-extension/issues)
 or a [pull request](https://github.com/pascalgn/properties-maven-extension/pulls).

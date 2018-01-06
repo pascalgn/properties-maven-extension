@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 Pascal
+ * Copyright 2018 Pascal
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +22,7 @@ import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevWalk;
+import org.eclipse.jgit.revwalk.RevWalkUtils;
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 
 import java.io.File;
@@ -68,6 +69,12 @@ class GitProperties {
 
         String commitIdAbbrev = repository.newObjectReader().abbreviate(head).name();
         map.put("git.commit.id.abbrev", commitIdAbbrev);
+
+        RevWalk walk = new RevWalk(repository);
+        walk.setRetainBody(false);
+        RevCommit headCommit = walk.parseCommit(head);
+        int count = RevWalkUtils.count(walk, headCommit, null);
+        map.put("git.count", Integer.toString(count));
     }
 
     private static String nullToEmpty(String str) {
