@@ -1,4 +1,7 @@
 .*
+!.gitignore
+!.editorconfig
+!.travis.yml
 
 *.iml
 *.class

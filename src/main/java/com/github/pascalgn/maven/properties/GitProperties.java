@@ -15,21 +15,18 @@
  */
 package com.github.pascalgn.maven.properties;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.codehaus.plexus.logging.Logger;
-import org.eclipse.jgit.internal.storage.file.FileRepository;
-import org.eclipse.jgit.lib.AbbreviatedObjectId;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevWalk;
 import org.eclipse.jgit.revwalk.RevWalkUtils;
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
 
 /**
  * Finds the Git repository based on the current working directory and reads properties about the current HEAD
@@ -53,7 +50,7 @@ class GitProperties {
 
     private void addProperties(Map<String, String> map) throws IOException {
         Repository repository = new FileRepositoryBuilder().setWorkTree(new File("."))
-                .readEnvironment().findGitDir().setMustExist(true).build();
+            .readEnvironment().findGitDir().setMustExist(true).build();
         logger.debug("Using git repository: " + repository.getDirectory());
 
         ObjectId head = repository.resolve("HEAD");
@@ -75,6 +72,12 @@ class GitProperties {
         RevCommit headCommit = walk.parseCommit(head);
         int count = RevWalkUtils.count(walk, headCommit, null);
         map.put("git.count", Integer.toString(count));
+
+        String color = commitId.substring(0, 6);
+        map.put("git.commit.color.value", color);
+        map.put("git.commit.color.name", ColorHelper.getColorName(color));
+        map.put("git.commit.color.lightness", Integer.toString(ColorHelper.getLightness(color)));
+        map.put("git.commit.color.foreground", ColorHelper.getForeground(color));
     }
 
     private static String nullToEmpty(String str) {

@@ -15,15 +15,13 @@
  */
 package com.github.pascalgn.maven.properties;
 
+import java.util.Map;
+
 import org.apache.maven.eventspy.AbstractEventSpy;
 import org.apache.maven.eventspy.EventSpy;
 import org.codehaus.plexus.component.annotations.Component;
-
-import java.util.Map;
-
-import org.codehaus.plexus.logging.Logger;
-import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.component.annotations.Requirement;
+import org.codehaus.plexus.logging.Logger;
 
 /**
  * Main entry point. Reads properties and exposes them as user properties.
@@ -48,9 +46,7 @@ public class EventSpyImpl extends AbstractEventSpy {
     private void addProperties(Map<String, Object> userProperties) {
         Map<String, String> gitProperties = new GitProperties(logger).getProperties();
         for (Map.Entry<String, String> entry : gitProperties.entrySet()) {
-            if (!userProperties.containsKey(entry.getKey())) {
-                userProperties.put(entry.getKey(), entry.getValue());
-            }
+            userProperties.putIfAbsent(entry.getKey(), entry.getValue());
         }
     }
 }
