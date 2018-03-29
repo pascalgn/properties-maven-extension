@@ -2,6 +2,7 @@
 !.gitignore
 !.editorconfig
 !.travis.yml
+!.mvn
 
 *.iml
 *.class
