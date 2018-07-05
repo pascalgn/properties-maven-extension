@@ -17,6 +17,8 @@ package com.github.pascalgn.maven.properties;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -78,9 +80,15 @@ class GitProperties {
         map.put("git.commit.color.name", ColorHelper.getColorName(color));
         map.put("git.commit.color.lightness", Integer.toString(ColorHelper.getLightness(color)));
         map.put("git.commit.color.foreground", ColorHelper.getForeground(color));
+
+        map.put("git.build.time", getFormattedDate());
     }
 
     private static String nullToEmpty(String str) {
         return (str == null ? "" : str);
+    }
+
+    private String getFormattedDate() {
+        return LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
     }
 }
