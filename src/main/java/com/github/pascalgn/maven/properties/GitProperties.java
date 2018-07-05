@@ -81,7 +81,7 @@ class GitProperties {
         map.put("git.commit.color.lightness", Integer.toString(ColorHelper.getLightness(color)));
         map.put("git.commit.color.foreground", ColorHelper.getForeground(color));
 
-        map.put("git.build.time.condensed", getFormattedDate());
+        map.put("git.build.datetime.simple", getFormattedDate());
     }
 
     private static String nullToEmpty(String str) {
