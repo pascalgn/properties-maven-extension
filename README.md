@@ -64,6 +64,7 @@ The following properties are currently provided by the extension:
 * `git.commit.color.name`, the name of the closest matching color (*Gossip*)
 * `git.commit.color.lightness`, the lightness of the color, in the range 0 - 100 (inclusive)
 * `git.commit.color.foreground`, a recommended foreground color, based on the lightness (*000000* or *ffffff*)
+* `git.build.datetime.simple`, build time in simple format (yyyyMMdd_HHmmss)
 
 If you need more properties, feel free to create an [issue](https://github.com/pascalgn/properties-maven-extension/issues)
 or a [pull request](https://github.com/pascalgn/properties-maven-extension/pulls).
