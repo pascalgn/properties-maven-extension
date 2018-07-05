@@ -22,7 +22,7 @@ public class GitPropertiesTest {
         assertNotEmpty(properties.get("git.commit.color.name"));
         assertNotEmpty(properties.get("git.commit.color.lightness"));
         assertNotEmpty(properties.get("git.commit.color.foreground"));
-        assertNotEmpty(properties.get("git.build.time"));
+        assertNotEmpty(properties.get("git.build.time.condensed"));
 
     }
 
