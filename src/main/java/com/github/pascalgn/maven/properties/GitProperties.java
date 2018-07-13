@@ -23,6 +23,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.codehaus.plexus.logging.Logger;
+import org.eclipse.jgit.api.DescribeCommand;
+import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
@@ -82,6 +85,11 @@ class GitProperties {
         map.put("git.commit.color.foreground", ColorHelper.getForeground(color));
 
         map.put("git.build.datetime.simple", getFormattedDate());
+        
+        String describe=getDescribeValue(repository, head);
+        map.put("git.describe", describe);
+        map.put("git.closest.tag.name",splitValue(describe,0));
+        map.put("git.closest.tag.commit.count",splitValue(describe,1));
     }
 
     private static String nullToEmpty(String str) {
@@ -90,5 +98,25 @@ class GitProperties {
 
     private String getFormattedDate() {
         return LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
+    }
+
+    private String getDescribeValue(Repository repository,ObjectId head) throws IOException {
+        DescribeCommand describeCommand = new Git(repository).describe();
+        String result = "";
+        try {
+            describeCommand.setTarget(head);
+            result = describeCommand.call();
+        } catch (GitAPIException e) {
+            logger.warn(e.getMessage(),e);
+        }
+        return result;
+    }
+    
+    private String splitValue(String value,int index) {
+        if(value != null) {
+            String[] split = value.split("-");
+            return (split.length>index?split[index]:"");
+        }
+        return "";
     }
 }
