@@ -23,6 +23,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.codehaus.plexus.logging.Logger;
+import org.eclipse.jgit.api.DescribeCommand;
+import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
@@ -39,7 +42,7 @@ class GitProperties {
     public GitProperties(Logger logger) {
         this.logger = logger;
     }
-
+    
     public Map<String, String> getProperties() {
         Map<String, String> map = new HashMap<String, String>();
         try {
@@ -50,9 +53,14 @@ class GitProperties {
         return map;
     }
 
-    private void addProperties(Map<String, String> map) throws IOException {
+    protected Repository getRepository() throws IOException {
         Repository repository = new FileRepositoryBuilder().setWorkTree(new File("."))
-            .readEnvironment().findGitDir().setMustExist(true).build();
+        	.readEnvironment().findGitDir().setMustExist(true).build();
+        return repository;
+    }
+    
+    private void addProperties(Map<String, String> map) throws IOException {
+        Repository repository = getRepository();
         logger.debug("Using git repository: " + repository.getDirectory());
 
         ObjectId head = repository.resolve("HEAD");
@@ -82,6 +90,9 @@ class GitProperties {
         map.put("git.commit.color.foreground", ColorHelper.getForeground(color));
 
         map.put("git.build.datetime.simple", getFormattedDate());
+        map.put("git.describe", getDescribeValue(repository, head, false));
+        map.put("git.describe.long", getDescribeValue(repository, head, true));
+
     }
 
     private static String nullToEmpty(String str) {
@@ -91,4 +102,18 @@ class GitProperties {
     private String getFormattedDate() {
         return LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
     }
+
+    private String getDescribeValue(Repository repository,ObjectId head, boolean isLong) throws IOException {
+        DescribeCommand describeCommand = new Git(repository).describe();
+        String result = "";
+        try {
+            describeCommand.setTarget(head);
+            describeCommand.setLong(isLong);
+            result = describeCommand.call();
+        } catch (GitAPIException e) {
+            logger.warn(e.getMessage(),e);
+        }
+        return (result == null ? "":result);
+    }
+
 }
