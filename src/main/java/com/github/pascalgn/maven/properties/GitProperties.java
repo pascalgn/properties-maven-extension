@@ -42,7 +42,7 @@ class GitProperties {
     public GitProperties(Logger logger) {
         this.logger = logger;
     }
-
+    
     public Map<String, String> getProperties() {
         Map<String, String> map = new HashMap<String, String>();
         try {
@@ -53,9 +53,14 @@ class GitProperties {
         return map;
     }
 
-    private void addProperties(Map<String, String> map) throws IOException {
+    protected Repository getRepository() throws IOException {
         Repository repository = new FileRepositoryBuilder().setWorkTree(new File("."))
-            .readEnvironment().findGitDir().setMustExist(true).build();
+        	.readEnvironment().findGitDir().setMustExist(true).build();
+        return repository;
+    }
+    
+    private void addProperties(Map<String, String> map) throws IOException {
+        Repository repository = getRepository();
         logger.debug("Using git repository: " + repository.getDirectory());
 
         ObjectId head = repository.resolve("HEAD");
@@ -85,11 +90,9 @@ class GitProperties {
         map.put("git.commit.color.foreground", ColorHelper.getForeground(color));
 
         map.put("git.build.datetime.simple", getFormattedDate());
-        
-        String describe=getDescribeValue(repository, head);
-        map.put("git.describe", describe);
-        map.put("git.closest.tag.name",splitValue(describe,0));
-        map.put("git.closest.tag.commit.count",splitValue(describe,1));
+        map.put("git.describe", getDescribeValue(repository, head, false));
+        map.put("git.describe.long", getDescribeValue(repository, head, true));
+
     }
 
     private static String nullToEmpty(String str) {
@@ -100,23 +103,17 @@ class GitProperties {
         return LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
     }
 
-    private String getDescribeValue(Repository repository,ObjectId head) throws IOException {
+    private String getDescribeValue(Repository repository,ObjectId head, boolean isLong) throws IOException {
         DescribeCommand describeCommand = new Git(repository).describe();
         String result = "";
         try {
             describeCommand.setTarget(head);
+            describeCommand.setLong(isLong);
             result = describeCommand.call();
         } catch (GitAPIException e) {
             logger.warn(e.getMessage(),e);
         }
-        return result;
+        return (result == null ? "":result);
     }
-    
-    private String splitValue(String value,int index) {
-        if(value != null) {
-            String[] split = value.split("-");
-            return (split.length>index?split[index]:"");
-        }
-        return "";
-    }
+
 }
