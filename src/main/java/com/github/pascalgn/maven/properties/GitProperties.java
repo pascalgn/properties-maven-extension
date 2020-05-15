@@ -20,10 +20,14 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.codehaus.plexus.logging.Logger;
+import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.lib.ObjectId;
+import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevWalk;
@@ -66,6 +70,8 @@ class GitProperties {
         String commitId = head.name();
         map.put("git.commit.id", commitId);
 
+        map.put("git.tag", getTag(repository));
+
         String commitIdAbbrev = repository.newObjectReader().abbreviate(head).name();
         map.put("git.commit.id.abbrev", commitIdAbbrev);
 
@@ -75,6 +81,7 @@ class GitProperties {
         int count = RevWalkUtils.count(walk, headCommit, null);
         map.put("git.count", Integer.toString(count));
 
+
         String color = commitId.substring(0, 6);
         map.put("git.commit.color.value", color);
         map.put("git.commit.color.name", ColorHelper.getColorName(color));
@@ -82,6 +89,24 @@ class GitProperties {
         map.put("git.commit.color.foreground", ColorHelper.getForeground(color));
 
         map.put("git.build.datetime.simple", getFormattedDate());
+    }
+
+    private String getTag(Repository repository) {
+        String tag = null;
+
+        try (Git git = new Git(repository)) {
+            List<Ref> refs = git.tagList().call();
+            if (refs != null) {
+                final String name = refs.get(refs.size() -1).getName();
+
+                if (name != null) {
+                    tag = refs.get(refs.size() -1).getName().substring("refs/tags/".length());
+                }
+            }
+        } catch (GitAPIException e) {
+            // nothing to do. tag remains null
+        }
+        return nullToEmpty(tag);
     }
 
     private static String nullToEmpty(String str) {
