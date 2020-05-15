@@ -67,7 +67,6 @@ The following properties are currently provided by the extension:
 * `git.build.datetime.simple`, build time in simple datetime format (yyyyMMdd_HHmmss)
 * `git.tag`, latest Tag from Tag List
 
-
 If you need more properties, feel free to create an [issue](https://github.com/pascalgn/properties-maven-extension/issues)
 or a [pull request](https://github.com/pascalgn/properties-maven-extension/pulls).
 
