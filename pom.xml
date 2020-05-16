@@ -23,7 +23,7 @@
 
     <groupId>com.github.pascalgn</groupId>
     <artifactId>properties-maven-extension</artifactId>
-    <version>0.3.2</version>
+    <version>0.3.3</version>
     <packaging>jar</packaging>
 
     <name>properties-maven-extension</name>
