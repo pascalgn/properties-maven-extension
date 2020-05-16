@@ -45,7 +45,7 @@ class GitProperties {
     }
 
     public Map<String, String> getProperties() {
-        Map<String, String> map = new HashMap<String, String>();
+        Map<String, String> map = new HashMap<>();
         try {
             addProperties(map);
         } catch (IOException e) {
@@ -70,7 +70,7 @@ class GitProperties {
         String commitId = head.name();
         map.put("git.commit.id", commitId);
 
-        map.put("git.tag", getTag(repository));
+        map.put("git.tag.last", getLastTag(repository));
 
         String commitIdAbbrev = repository.newObjectReader().abbreviate(head).name();
         map.put("git.commit.id.abbrev", commitIdAbbrev);
@@ -81,7 +81,6 @@ class GitProperties {
         int count = RevWalkUtils.count(walk, headCommit, null);
         map.put("git.count", Integer.toString(count));
 
-
         String color = commitId.substring(0, 6);
         map.put("git.commit.color.value", color);
         map.put("git.commit.color.name", ColorHelper.getColorName(color));
@@ -91,20 +90,16 @@ class GitProperties {
         map.put("git.build.datetime.simple", getFormattedDate());
     }
 
-    private String getTag(Repository repository) {
+    private String getLastTag(Repository repository) {
         String tag = null;
-
         try (Git git = new Git(repository)) {
             List<Ref> refs = git.tagList().call();
-            if (refs != null) {
-                final String name = refs.get(refs.size() -1).getName();
-
-                if (name != null) {
-                    tag = refs.get(refs.size() -1).getName().substring("refs/tags/".length());
-                }
+            if (!refs.isEmpty()) {
+                String last = refs.get(refs.size() - 1).getName();
+                tag = last.substring("refs/tags/".length());
             }
         } catch (GitAPIException e) {
-            // nothing to do. tag remains null
+            logger.debug("Failed to get tags", e);
         }
         return nullToEmpty(tag);
     }
