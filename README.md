@@ -49,9 +49,6 @@ You will need at least Maven 3.5.0 for this to work. See
 [the release notes](https://maven.apache.org/docs/3.5.0/release-notes.html) for more information.
 You also need to run your Maven build with at least Java 8 (due to the [JGit](https://eclipse.org/jgit) dependency).
 
-For *earlier* Maven versions, you need to manually download [the JAR file](https://repo.maven.apache.org/maven2/com/github/pascalgn/properties-maven-extension/)
-and place it in the `${MAVEN_HOME}/lib/ext` folder.
-
 ## Properties
 
 The following properties are currently provided by the extension:
