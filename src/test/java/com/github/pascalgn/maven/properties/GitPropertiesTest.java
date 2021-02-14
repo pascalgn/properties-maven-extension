@@ -24,6 +24,8 @@ public class GitPropertiesTest {
         assertNotEmpty(properties.get("git.commit.color.foreground"));
         assertNotEmpty(properties.get("git.build.datetime.simple"));
         assertNotEmpty(properties.get("git.tag.last"));
+        assertNotEmpty(properties.get("git.dir.git"));
+        assertNotEmpty(properties.get("git.dir.worktree"));
     }
 
     private static void assertNotEmpty(String str) {

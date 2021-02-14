@@ -55,8 +55,9 @@ class GitProperties {
     }
 
     private void addProperties(Map<String, String> map) throws IOException {
-        Repository repository = new FileRepositoryBuilder().setWorkTree(new File("."))
-            .readEnvironment().findGitDir().setMustExist(true).build();
+        File gitDir = new FileRepositoryBuilder().setWorkTree(new File("."))
+            .readEnvironment().findGitDir().getGitDir();
+        Repository repository = new FileRepositoryBuilder().setGitDir(gitDir).setMustExist(true).build();
         logger.debug("Using git repository: " + repository.getDirectory());
 
         ObjectId head = repository.resolve("HEAD");
@@ -88,6 +89,9 @@ class GitProperties {
         map.put("git.commit.color.foreground", ColorHelper.getForeground(color));
 
         map.put("git.build.datetime.simple", getFormattedDate());
+
+        map.put("git.dir.git", repository.getDirectory().getAbsolutePath());
+        map.put("git.dir.worktree", repository.getWorkTree().getAbsolutePath());
     }
 
     private String getLastTag(Repository repository) {

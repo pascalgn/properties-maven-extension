@@ -28,7 +28,18 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
+        <git.branch>${git.branch}</git.branch>
+        <git.build.datetime.simple>${git.build.datetime.simple}</git.build.datetime.simple>
         <git.commit.id>${git.commit.id}</git.commit.id>
+        <git.commit.id.abbrev>${git.commit.id.abbrev}</git.commit.id.abbrev>
+        <git.count>${git.count}</git.count>
+        <git.commit.color.value>${git.commit.color.value}</git.commit.color.value>
+        <git.commit.color.name>${git.commit.color.name}</git.commit.color.name>
+        <git.commit.color.lightness>${git.commit.color.lightness}</git.commit.color.lightness>
+        <git.commit.color.foreground>${git.commit.color.foreground}</git.commit.color.foreground>
+        <git.dir.git>${git.dir.git}</git.dir.git>
+        <git.dir.worktree>${git.dir.worktree}</git.dir.worktree>
+        <git.tag.last>${git.tag.last}</git.tag.last>
     </properties>
 
     <build>
@@ -56,8 +67,13 @@
                         <configuration>
                             <scripts>
                                 <script>
+                                    for (name in project.properties.stringPropertyNames()) {
+                                        if (name.startsWith('git.')) {
+                                            println "Property $name: " + project.properties.getProperty(name)
+                                        }
+                                    }
+
                                     def gitCommitId = project.properties.getProperty('git.commit.id')
-                                    println 'Property git.commit.id: ' + gitCommitId
                                     if (gitCommitId.empty) {
                                         throw new IllegalStateException('Property empty: git.commit.id')
                                     }

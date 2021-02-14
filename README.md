@@ -54,6 +54,7 @@ You also need to run your Maven build with at least Java 8 (due to the [JGit](ht
 The following properties are currently provided by the extension:
 
 * `git.branch`, the current branch name (*master*, *feature/some-feature*, etc.)
+* `git.build.datetime.simple`, build time in simple datetime format (yyyyMMdd_HHmmss)
 * `git.commit.id`, the full SHA of the HEAD commit (*cbf1b9a1be984a9f61b79a05f23b19f66d533537*)
 * `git.commit.id.abbrev`, the abbreviated SHA of the HEAD commit (*cbf1b9a*)
 * `git.count`, the current number of commits reachable from HEAD
@@ -61,7 +62,8 @@ The following properties are currently provided by the extension:
 * `git.commit.color.name`, the name of the closest matching color (*Gossip*)
 * `git.commit.color.lightness`, the lightness of the color, in the range 0 - 100 (inclusive)
 * `git.commit.color.foreground`, a recommended foreground color, based on the lightness (*000000* or *ffffff*)
-* `git.build.datetime.simple`, build time in simple datetime format (yyyyMMdd_HHmmss)
+* `git.dir.git`, the absolute path of the repository (*/home/user/workspace/myproject/.git*)
+* `git.dir.worktree`, the absolute path of the working tree (*/home/user/workspace/myproject*)
 * `git.tag.last`, last tag from sorted tag list (*v1.2.3*)
 
 If you need more properties, feel free to create an [issue](https://github.com/pascalgn/properties-maven-extension/issues)
