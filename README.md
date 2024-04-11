@@ -35,7 +35,7 @@ by adding the following `.mvn/extensions.xml` file to the project:
     <extension>
         <groupId>com.github.pascalgn</groupId>
         <artifactId>properties-maven-extension</artifactId>
-        <version>0.5.1</version>
+        <version>0.6.0</version>
     </extension>
 </extensions>
 ```
@@ -58,10 +58,7 @@ The following properties are currently provided by the extension:
 * `git.commit.id`, the full SHA of the HEAD commit (*cbf1b9a1be984a9f61b79a05f23b19f66d533537*)
 * `git.commit.id.abbrev`, the abbreviated SHA of the HEAD commit (*cbf1b9a*)
 * `git.count`, the current number of commits reachable from HEAD
-* `git.commit.color.value`, always the first six characters of the commit SHA (*cbf1b9*)
-* `git.commit.color.name`, the name of the closest matching color (*Gossip*)
-* `git.commit.color.lightness`, the lightness of the color, in the range 0 - 100 (inclusive)
-* `git.commit.color.foreground`, a recommended foreground color, based on the lightness (*000000* or *ffffff*)
+* `git.commit.color`, always the first six characters of the commit SHA (*cbf1b9*)
 * `git.dir.git`, the absolute path of the repository (*/home/user/workspace/myproject/.git*)
 * `git.dir.worktree`, the absolute path of the working tree (*/home/user/workspace/myproject*)
 * `git.tag.last`, last tag from sorted tag list (*v1.2.3*)
@@ -78,9 +75,13 @@ or a [pull request](https://github.com/pascalgn/properties-maven-extension/pulls
 
 ## Changelog
 
+### Version 0.6.0
+
+- Removed unused color properties
+
 ### Version 0.5.1
 
-- Update maven-core dependency to fix security warnings
+- Updated maven-core dependency to fix security warnings
 
 ### Version 0.5.0
 
@@ -95,6 +96,4 @@ or a [pull request](https://github.com/pascalgn/properties-maven-extension/pulls
 
 ## License
 
-The Properties Maven Extension is licensed under the Apache License, Version 2.0.
-
-This software uses the Resene RGB values list, see [the license](src/main/resources/resene.md) for more details.
+[Apache License, Version 2.0](LICENSE)

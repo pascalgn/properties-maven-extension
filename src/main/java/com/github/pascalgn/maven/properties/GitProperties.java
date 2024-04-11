@@ -83,10 +83,7 @@ class GitProperties {
         map.put("git.count", Integer.toString(count));
 
         String color = commitId.substring(0, 6);
-        map.put("git.commit.color.value", color);
-        map.put("git.commit.color.name", ColorHelper.getColorName(color));
-        map.put("git.commit.color.lightness", Integer.toString(ColorHelper.getLightness(color)));
-        map.put("git.commit.color.foreground", ColorHelper.getForeground(color));
+        map.put("git.commit.color", color);
 
         map.put("git.build.datetime.simple", getFormattedDate());
 

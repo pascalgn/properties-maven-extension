@@ -33,10 +33,7 @@
         <git.commit.id>${git.commit.id}</git.commit.id>
         <git.commit.id.abbrev>${git.commit.id.abbrev}</git.commit.id.abbrev>
         <git.count>${git.count}</git.count>
-        <git.commit.color.value>${git.commit.color.value}</git.commit.color.value>
-        <git.commit.color.name>${git.commit.color.name}</git.commit.color.name>
-        <git.commit.color.lightness>${git.commit.color.lightness}</git.commit.color.lightness>
-        <git.commit.color.foreground>${git.commit.color.foreground}</git.commit.color.foreground>
+        <git.commit.color>${git.commit.color}</git.commit.color>
         <git.dir.git>${git.dir.git}</git.dir.git>
         <git.dir.worktree>${git.dir.worktree}</git.dir.worktree>
         <git.tag.last>${git.tag.last}</git.tag.last>
