@@ -1,6 +1,6 @@
 # properties-maven-extension
 
-[![Build Status](https://img.shields.io/travis/pascalgn/properties-maven-extension.svg?style=flat-square)](https://travis-ci.org/pascalgn/properties-maven-extension) [![License](https://img.shields.io/github/license/pascalgn/properties-maven-extension.svg?style=flat-square)](LICENSE)
+[![License](https://img.shields.io/github/license/pascalgn/properties-maven-extension.svg?style=flat-square)](LICENSE)
 
 A Maven extension to introduce properties *before* the build is started.
 This allows the usage of dynamic project versions like `1.2.3.${sha1}`.
