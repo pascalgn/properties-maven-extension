@@ -23,7 +23,7 @@
 
     <groupId>com.github.pascalgn</groupId>
     <artifactId>properties-maven-extension</artifactId>
-    <version>0.4.0</version>
+    <version>0.5.0</version>
     <packaging>jar</packaging>
 
     <name>properties-maven-extension</name>
@@ -81,8 +81,8 @@
                         <configuration>
                             <rules>
                                 <requireJavaVersion>
-                                    <version>[1.8.0,)</version>
-                                    <message>Wrong Java version. It should be 1.8.0 or higher!</message>
+                                    <version>[11.0,)</version>
+                                    <message>Wrong Java version. It should be 11.0 or higher!</message>
                                 </requireJavaVersion>
                                 <requireMavenVersion>
                                     <version>[3.5.0,)</version>

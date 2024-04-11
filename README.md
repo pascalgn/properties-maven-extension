@@ -35,7 +35,7 @@ by adding the following `.mvn/extensions.xml` file to the project:
     <extension>
         <groupId>com.github.pascalgn</groupId>
         <artifactId>properties-maven-extension</artifactId>
-        <version>0.4.0</version>
+        <version>0.5.0</version>
     </extension>
 </extensions>
 ```
@@ -47,7 +47,7 @@ so that the final project version will be `1.2.3.abcd123` (depending on the curr
 
 You will need at least Maven 3.5.0 for this to work. See
 [the release notes](https://maven.apache.org/docs/3.5.0/release-notes.html) for more information.
-You also need to run your Maven build with at least Java 8 (due to the [JGit](https://eclipse.org/jgit) dependency).
+You also need to run your Maven build with at least Java 11 (due to the [JGit](https://eclipse.org/jgit) dependency).
 
 ## Properties
 
@@ -75,6 +75,12 @@ or a [pull request](https://github.com/pascalgn/properties-maven-extension/pulls
 * When building in Jenkins, you might run into the issue that the
   [branch name is not set due to detached HEAD](https://stackoverflow.com/questions/39297783/detached-head-w-jenkins-git-plugin-and-branch-specifier)
 * The versioning scheme of this project follows [semantic versioning](http://semver.org/)
+
+## Changelog
+
+### Version 0.5.0
+
+- Changed required Java version from 1.8 to 11
 
 ## Related projects
 
