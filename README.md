@@ -35,7 +35,7 @@ by adding the following `.mvn/extensions.xml` file to the project:
     <extension>
         <groupId>com.github.pascalgn</groupId>
         <artifactId>properties-maven-extension</artifactId>
-        <version>0.5.0</version>
+        <version>0.5.1</version>
     </extension>
 </extensions>
 ```
@@ -77,6 +77,10 @@ or a [pull request](https://github.com/pascalgn/properties-maven-extension/pulls
 * The versioning scheme of this project follows [semantic versioning](http://semver.org/)
 
 ## Changelog
+
+### Version 0.5.1
+
+- Update maven-core dependency to fix security warnings
 
 ### Version 0.5.0
 
