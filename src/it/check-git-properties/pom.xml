@@ -27,7 +27,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
+        <version.groovy>4.0.21</version.groovy>
         <git.branch>${git.branch}</git.branch>
         <git.build.datetime.simple>${git.build.datetime.simple}</git.build.datetime.simple>
         <git.commit.id>${git.commit.id}</git.commit.id>
@@ -44,15 +44,19 @@
             <plugin>
                 <groupId>org.codehaus.gmavenplus</groupId>
                 <artifactId>gmavenplus-plugin</artifactId>
-                <version>1.6.2</version>
+                <version>3.0.2</version>
                 <dependencies>
-                    <dependency>
-                        <groupId>org.codehaus.groovy</groupId>
-                        <artifactId>groovy-all</artifactId>
-                        <version>2.5.3</version>
-                        <type>pom</type>
-                        <scope>runtime</scope>
-                    </dependency>
+                        <dependency>
+                            <groupId>org.apache.groovy</groupId>
+                            <artifactId>groovy</artifactId>
+                            <version>${version.groovy}</version>
+                            <scope>runtime</scope>
+                        </dependency>
+                        <dependency>
+                            <groupId>org.apache.groovy</groupId>
+                            <artifactId>groovy-ant</artifactId>
+                            <version>${version.groovy}</version>
+                        </dependency>
                 </dependencies>
                 <executions>
                     <execution>
