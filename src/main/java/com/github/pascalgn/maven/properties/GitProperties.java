@@ -73,6 +73,8 @@ class GitProperties {
 
         map.put("git.tag.last", getLastTag(repository));
 
+        map.put("git.describe.tag", getDescribeTag(repository));
+
         String commitIdAbbrev = repository.newObjectReader().abbreviate(head).name();
         map.put("git.commit.id.abbrev", commitIdAbbrev);
 
@@ -101,6 +103,16 @@ class GitProperties {
             }
         } catch (GitAPIException e) {
             logger.debug("Failed to get tags", e);
+        }
+        return nullToEmpty(tag);
+    }
+
+    private String getDescribeTag(Repository repository) {
+        String tag = null;
+        try (Git git = new Git(repository)) {
+            tag = git.describe().setTags(true).setAbbrev(0).call();
+        } catch (GitAPIException e) {
+            logger.debug("Failed to get describe tag", e);
         }
         return nullToEmpty(tag);
     }
