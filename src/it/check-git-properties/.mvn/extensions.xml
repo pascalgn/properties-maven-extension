@@ -3,6 +3,6 @@
     <extension>
         <groupId>com.github.pascalgn-dneely-fork</groupId>
         <artifactId>properties-maven-extension</artifactId>
-        <version>0.6.1</version>
+        <version>0.7.0</version>
     </extension>
 </extensions>

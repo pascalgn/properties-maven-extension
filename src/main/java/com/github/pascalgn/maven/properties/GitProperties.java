@@ -15,15 +15,8 @@
  */
 package com.github.pascalgn.maven.properties;
 
-import java.io.File;
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.codehaus.plexus.logging.Logger;
+import org.eclipse.jgit.api.DescribeCommand;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.lib.ObjectId;
@@ -33,6 +26,14 @@ import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevWalk;
 import org.eclipse.jgit.revwalk.RevWalkUtils;
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
+
+import java.io.File;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Finds the Git repository based on the current working directory and reads properties about the current HEAD
@@ -73,7 +74,8 @@ class GitProperties {
 
         map.put("git.tag.last", getLastTag(repository));
 
-        map.put("git.describe.tag", getDescribeTag(repository));
+        map.put("git.describe.long", getDescribe(repository, false));
+        map.put("git.describe.tag", getDescribe(repository, true));
 
         String commitIdAbbrev = repository.newObjectReader().abbreviate(head).name();
         map.put("git.commit.id.abbrev", commitIdAbbrev);
@@ -107,14 +109,15 @@ class GitProperties {
         return nullToEmpty(tag);
     }
 
-    private String getDescribeTag(Repository repository) {
-        String tag = null;
+    private String getDescribe(Repository repository, boolean tags) {
+        String str = null;
         try (Git git = new Git(repository)) {
-            tag = git.describe().setTags(true).setAbbrev(0).call();
+            DescribeCommand command = tags ? git.describe().setTags(true).setAbbrev(0) : git.describe().setLong(true);
+            str = command.call();
         } catch (GitAPIException e) {
             logger.debug("Failed to get describe tag", e);
         }
-        return nullToEmpty(tag);
+        return nullToEmpty(str);
     }
 
     private static String nullToEmpty(String str) {

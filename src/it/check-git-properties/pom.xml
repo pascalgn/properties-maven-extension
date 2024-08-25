@@ -21,13 +21,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.github.pascalgn-dneely-fork</groupId>
+    <groupId>com.github.pascalgn</groupId>
     <artifactId>check-git-properties</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <version.groovy>4.0.21</version.groovy>
         <git.branch>${git.branch}</git.branch>
         <git.build.datetime.simple>${git.build.datetime.simple}</git.build.datetime.simple>
         <git.commit.id>${git.commit.id}</git.commit.id>
@@ -37,6 +36,8 @@
         <git.dir.git>${git.dir.git}</git.dir.git>
         <git.dir.worktree>${git.dir.worktree}</git.dir.worktree>
         <git.tag.last>${git.tag.last}</git.tag.last>
+        <git.describe.long>${git.describe.long}</git.describe.long>
+        <git.describe.tag>${git.describe.tag}</git.describe.tag>
     </properties>
 
     <build>
@@ -46,17 +47,18 @@
                 <artifactId>gmavenplus-plugin</artifactId>
                 <version>3.0.2</version>
                 <dependencies>
-                        <dependency>
-                            <groupId>org.apache.groovy</groupId>
-                            <artifactId>groovy</artifactId>
-                            <version>${version.groovy}</version>
-                            <scope>runtime</scope>
-                        </dependency>
-                        <dependency>
-                            <groupId>org.apache.groovy</groupId>
-                            <artifactId>groovy-ant</artifactId>
-                            <version>${version.groovy}</version>
-                        </dependency>
+                    <dependency>
+                        <groupId>org.apache.groovy</groupId>
+                        <artifactId>groovy</artifactId>
+                        <version>4.0.21</version>
+                        <scope>runtime</scope>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.apache.groovy</groupId>
+                        <artifactId>groovy-ant</artifactId>
+                        <version>4.0.21</version>
+                        <scope>runtime</scope>
+                    </dependency>
                 </dependencies>
                 <executions>
                     <execution>
