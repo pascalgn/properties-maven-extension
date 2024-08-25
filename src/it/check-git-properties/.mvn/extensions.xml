@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <extensions>
     <extension>
-        <groupId>com.github.pascalgn-dneely-fork</groupId>
+        <groupId>com.github.pascalgn</groupId>
         <artifactId>properties-maven-extension</artifactId>
         <version>0.7.0</version>
     </extension>

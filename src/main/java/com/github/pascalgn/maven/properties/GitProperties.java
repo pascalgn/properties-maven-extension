@@ -15,6 +15,14 @@
  */
 package com.github.pascalgn.maven.properties;
 
+import java.io.File;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.codehaus.plexus.logging.Logger;
 import org.eclipse.jgit.api.DescribeCommand;
 import org.eclipse.jgit.api.Git;
@@ -26,14 +34,6 @@ import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevWalk;
 import org.eclipse.jgit.revwalk.RevWalkUtils;
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
-
-import java.io.File;
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Finds the Git repository based on the current working directory and reads properties about the current HEAD
@@ -57,7 +57,7 @@ class GitProperties {
 
     private void addProperties(Map<String, String> map) throws IOException {
         File gitDir = new FileRepositoryBuilder().setWorkTree(new File("."))
-            .readEnvironment().findGitDir().getGitDir();
+                .readEnvironment().findGitDir().getGitDir();
         Repository repository = new FileRepositoryBuilder().setGitDir(gitDir).setMustExist(true).build();
         logger.debug("Using git repository: " + repository.getDirectory());
 

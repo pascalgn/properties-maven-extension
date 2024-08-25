@@ -27,6 +27,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
         <git.branch>${git.branch}</git.branch>
         <git.build.datetime.simple>${git.build.datetime.simple}</git.build.datetime.simple>
         <git.commit.id>${git.commit.id}</git.commit.id>
