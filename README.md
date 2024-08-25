@@ -35,7 +35,7 @@ by adding the following `.mvn/extensions.xml` file to the project:
     <extension>
         <groupId>com.github.pascalgn</groupId>
         <artifactId>properties-maven-extension</artifactId>
-        <version>0.6.0</version>
+        <version>0.7.0</version>
     </extension>
 </extensions>
 ```
