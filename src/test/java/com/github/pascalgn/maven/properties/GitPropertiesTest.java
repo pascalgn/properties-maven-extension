@@ -21,6 +21,8 @@ public class GitPropertiesTest {
         assertNotEmpty(properties.get("git.commit.color"));
         assertNotEmpty(properties.get("git.build.datetime.simple"));
         assertNotEmpty(properties.get("git.tag.last"));
+        assertNotEmpty(properties.get("git.describe.long"));
+        assertNotEmpty(properties.get("git.describe.tag"));
         assertNotEmpty(properties.get("git.dir.git"));
         assertNotEmpty(properties.get("git.dir.worktree"));
     }

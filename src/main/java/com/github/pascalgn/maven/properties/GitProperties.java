@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.codehaus.plexus.logging.Logger;
+import org.eclipse.jgit.api.DescribeCommand;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.lib.ObjectId;
@@ -56,7 +57,7 @@ class GitProperties {
 
     private void addProperties(Map<String, String> map) throws IOException {
         File gitDir = new FileRepositoryBuilder().setWorkTree(new File("."))
-            .readEnvironment().findGitDir().getGitDir();
+                .readEnvironment().findGitDir().getGitDir();
         Repository repository = new FileRepositoryBuilder().setGitDir(gitDir).setMustExist(true).build();
         logger.debug("Using git repository: " + repository.getDirectory());
 
@@ -72,6 +73,9 @@ class GitProperties {
         map.put("git.commit.id", commitId);
 
         map.put("git.tag.last", getLastTag(repository));
+
+        map.put("git.describe.long", getDescribe(repository, false));
+        map.put("git.describe.tag", getDescribe(repository, true));
 
         String commitIdAbbrev = repository.newObjectReader().abbreviate(head).name();
         map.put("git.commit.id.abbrev", commitIdAbbrev);
@@ -103,6 +107,17 @@ class GitProperties {
             logger.debug("Failed to get tags", e);
         }
         return nullToEmpty(tag);
+    }
+
+    private String getDescribe(Repository repository, boolean tags) {
+        String str = null;
+        try (Git git = new Git(repository)) {
+            DescribeCommand command = tags ? git.describe().setTags(true).setAbbrev(0) : git.describe().setLong(true);
+            str = command.call();
+        } catch (GitAPIException e) {
+            logger.debug("Failed to get describe tag", e);
+        }
+        return nullToEmpty(str);
     }
 
     private static String nullToEmpty(String str) {

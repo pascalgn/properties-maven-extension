@@ -62,6 +62,8 @@ The following properties are currently provided by the extension:
 * `git.dir.git`, the absolute path of the repository (*/home/user/workspace/myproject/.git*)
 * `git.dir.worktree`, the absolute path of the working tree (*/home/user/workspace/myproject*)
 * `git.tag.last`, last tag from sorted tag list (*v1.2.3*)
+* `git.describe.long`, combination of tag name and commit SHA (*v1.2.3-27-gcbf1b9a*)
+* `git.describe.tag`, the latest tag reachable from the current branch (*v1.2.3*)
 
 If you need more properties, feel free to create an [issue](https://github.com/pascalgn/properties-maven-extension/issues)
 or a [pull request](https://github.com/pascalgn/properties-maven-extension/pulls).
@@ -74,6 +76,11 @@ or a [pull request](https://github.com/pascalgn/properties-maven-extension/pulls
 * The versioning scheme of this project follows [semantic versioning](http://semver.org/)
 
 ## Changelog
+
+### Version 0.7.0
+
+- Added new property `git.describe.long`
+- Added new property `git.describe.tag` (see [#64](https://github.com/pascalgn/properties-maven-extension/issues/64))
 
 ### Version 0.6.0
 
